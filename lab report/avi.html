@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AVI'S LAB | Book Lab Tests Online</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body { background: #f8f9fc; color: #333; scroll-behavior:smooth; }
+    a { text-decoration: none; color: inherit; }
+
+    /* Header */
+    header {
+      background: #fff;
+      padding: 15px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo { display: flex; align-items: center; font-weight: 600; color: #c62828; font-size:18px; }
+    nav a { margin: 0 15px; font-weight: 500; position: relative; }
+    nav a::after{content:"";position:absolute;width:0;height:2px;background:#c62828;left:0;bottom:-5px;transition:.3s}
+    nav a:hover::after{width:100%}
+    .login-btn { background: #c62828; color: #fff; padding: 8px 18px; border-radius: 6px; }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 60px;
+      background: linear-gradient(to right, #fdf2f2, #eef3ff);
+    }
+    .hero img{border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,0.15)}
+    .hero-text h1 { font-size: 42px; margin-bottom: 15px; }
+    .hero-text p { color: #666; margin-bottom: 25px; }
+    .search-box { display: flex; }
+    .search-box input {
+      padding: 14px;
+      width: 350px;
+      border-radius: 8px 0 0 8px;
+      border: 1px solid #ddd;
+      outline: none;
+    }
+    .search-box button {
+      padding: 14px 25px;
+      background: #c62828;
+      border: none;
+      color: #fff;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+    }
+
+    /* Section */
+    section { padding: 60px; }
+    h2 { margin-bottom: 30px; color: #c62828; }
+
+    /* Cards */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 25px; }
+    .card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 14px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+      text-align: center;
+      transition:.3s
+    }
+    .card:hover{transform:translateY(-8px)}
+    .price { font-size: 22px; margin: 10px 0; }
+    .price del { color: #999; margin-right: 8px; }
+    .btn {
+      background: #c62828;
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    /* Categories */
+    .category {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+      transition:.3s
+    }
+    .category i{font-size:34px;color:#c62828;margin-bottom:10px}
+    .category:hover{transform:translateY(-6px)}
+
+    /* Why Choose Us */
+    .why-us { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 30px; }
+    .why-box { text-align: center; }
+    .why-box i { font-size: 40px; color: #c62828; margin-bottom: 15px; }
+
+    /* Footer */
+    footer {
+      background: #c62828;
+      color: #fff;
+      padding: 40px 60px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+      gap: 30px;
+    }
+    footer h3 { margin-bottom: 15px; }
+    footer p, footer a { color: #ffdede; font-size: 14px; }
+
+    @media(max-width:768px) {
+      header, section, .hero { padding: 30px; }
+      .hero { flex-direction: column; text-align: center; }
+      .search-box { justify-content: center; }
+    }
+(max-width:768px) {
+      header, section, .hero { padding: 30px; }
+      .hero { flex-direction: column; text-align: center; }
+      .search-box { justify-content: center; }
+    }
+  </style>
+</head>
+<body id="home">
+
+<header>
+  <div class="logo">
+    <img src="https://cdn-icons-png.flaticon.com/512/3774/3774299.png" alt="Doctor" style="width:40px;height:40px;margin-right:10px;border-radius:50%">
+    <span>AVI'S LAB</span>
+  </div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#tests">Tests</a>
+    <a href="#packages">Packages</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a class="login-btn" href="#login">Login</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="hero-text">
+    <h1>Book Lab Tests Online<br>with Trusted Diagnostics</h1>
+    <p>Accurate reports • Home sample collection • Online payment</p>
+    <div class="search-box">
+      <input type="text" placeholder="Search tests, packages or health checkups">
+      <button>Search Tests</button>
+    </div>
+  </div>
+  <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b" width="380" alt="Diagnostic Lab">
+</div>
+
+<section id="tests">
+  <h2>Popular Tests</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>CBC Test</h3>
+      <div class="price"><del>₹809</del> ₹499</div>
+      <a class="btn">Book Now</a>
+    </div>
+    <div class="card">
+      <h3>Thyroid Profile</h3>
+      <div class="price">₹699</div>
+      <a class="btn">Book Now</a>
+    </div>
+    <div class="card">
+      <h3>Diabetes Screening</h3>
+      <div class="price">₹699</div>
+      <a class="btn">Book Now</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Test Categories</h2>
+  <div class="card-grid">
+    <div class="category"><i class="fa-solid fa-droplet"></i><h4>Blood Tests</h4></div>
+    <div class="category"><i class="fa-solid fa-flask"></i><h4>Urine Tests</h4></div>
+    <div class="category"><i class="fa-solid fa-syringe"></i><h4>Diabetes</h4></div>
+    <div class="category"><i class="fa-solid fa-vial"></i><h4>Thyroid</h4></div>
+    <div class="category"><i class="fa-solid fa-heart-pulse"></i><h4>Heart Tests</h4></div>
+  </div>
+</section>
+
+<section>
+  <h2>Why Choose Us</h2>
+  <div class="why-us">
+    <div class="why-box"><i class="fa-solid fa-certificate"></i><h4>NABL Certified</h4></div>
+    <div class="why-box"><i class="fa-solid fa-user-doctor"></i><h4>Expert Pathologists</h4></div>
+    <div class="why-box"><i class="fa-solid fa-file-medical"></i><h4>Accurate Reports</h4></div>
+    <div class="why-box"><i class="fa-solid fa-shield-halved"></i><h4>Secure Payments</h4></div>
+  </div>
+</section>
+
+<section id="packages">
+  <h2>Offers & Health Packages</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Full Body Checkup</h3>
+      <div class="price"><del>₹2499</del> ₹1499</div>
+      <p>60+ Tests</p>
+      <a class="btn">Book Now</a>
+    </div>
+    <div class="card">
+      <h3>Basic Health Package</h3>
+      <div class="price"><del>₹2999</del> ₹1999</div>
+      <p>70+ Tests</p>
+      <a class="btn">Book Now</a>
+    </div>
+    <div class="card">
+      <h3>Family Care Package</h3>
+      <div class="price"><del>₹6000</del> ₹3499</div>
+      <p>90+ Tests</p>
+      <a class="btn">Book Now</a>
+    </div>
+  </div>
+</section>
+
+<section id="about" style="background:#fff;padding:60px">
+  <h2>About Our Lab</h2>
+  <p style="max-width:800px;color:#555;line-height:1.8">We are a trusted diagnostic laboratory providing accurate and timely medical test reports. With NABL certified labs, experienced pathologists and modern equipment, we ensure reliable diagnostics and home sample collection services.</p>
+</section>
+
+<section id="contact" style="background:#fdf2f2;padding:60px">
+  <h2>Contact Us</h2>
+  <p>📍 Main Road, Sangola, Maharashtra 413308</p>
+  <p>📞 +91 7822054093</p>
+  <p>✉  bansodeavinash813@gmail.com</p>
+</section>
+
+<section id="login" style="background:#eef3ff;padding:60px">
+  <h2>Login</h2>
+  <div style="max-width:400px;background:#fff;padding:30px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.08)">
+    <input type="text" placeholder="Email or Mobile" style="width:100%;padding:12px;margin-bottom:15px;border:1px solid #ddd;border-radius:6px">
+    <input type="password" placeholder="Password" style="width:100%;padding:12px;margin-bottom:15px;border:1px solid #ddd;border-radius:6px">
+    <button style="width:100%;padding:12px;background:#c62828;color:#fff;border:none;border-radius:6px;font-size:16px">Login</button>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h3>Quick Links</h3>
+      <p>Home</p><p>Tests</p><p>Packages</p><p>Contact Us</p>
+    </div>
+    <div>
+      <h3>Contact Us</h3>
+      <p>Main Road, Sangola, Maharashtra 413308</p>
+      <p>📞 +91 7822054093</p>
+      <p>✉ bansodeavinash813@gmail.com</p>
+    </div>
+    <div>
+      <h3>Payments</h3>
+      <div class="payments">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" width="50">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" width="50">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Google_Pay_%282020%29.svg" width="50">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/UPI-Logo-vector.svg" width="50">
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+const toggleBtn = document.getElementById("themeToggle");
+const icon = toggleBtn.querySelector("i");
+
+/* Load saved theme */
+if(localStorage.getItem("theme")==="dark"){
+  document.body.classList.add("dark");
+  icon.classList.replace("fa-moon","fa-sun");
+}
+
+/* Toggle theme */
+toggleBtn.addEventListener("click",()=>{
+  document.body.classList.toggle("dark");
+
+  const isDark = document.body.classList.contains("dark");
+  icon.classList.toggle("fa-sun",isDark);
+  icon.classList.toggle("fa-moon",!isDark);
+
+  localStorage.setItem("theme",isDark ? "dark":"light");
+});
+</script>
+</scrpt>
+</body>
+</html>

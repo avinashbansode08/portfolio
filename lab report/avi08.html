@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Command Center Pro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --bg:#0b0f1a;
+  --glass:rgba(255,255,255,0.08);
+  --border:rgba(255,255,255,0.15);
+  --text:#e5e7eb;
+  --accent:#38bdf8;
+  --blur:blur(18px);
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui}
+body{
+  background:radial-gradient(circle at top,var(--accent),transparent 40%),var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+/* LOGIN */
+.login{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.login-box{
+  width:360px;
+  padding:28px;
+  background:var(--glass);
+  backdrop-filter:var(--blur);
+  border:1px solid var(--border);
+  border-radius:22px;
+}
+.login-box h2{text-align:center;margin-bottom:20px}
+.login-box input{
+  width:100%;
+  padding:14px;
+  margin-bottom:14px;
+  border-radius:12px;
+  border:none;
+  outline:none;
+}
+.login-box button{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  border:none;
+  background:var(--accent);
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* DASHBOARD */
+.dashboard{display:none;padding:24px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.widget{
+  padding:18px;
+  border-radius:18px;
+  background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
+  border:1px solid var(--border);
+  cursor:pointer;
+  transition:.4s;
+}
+.widget:hover{transform:translateY(-6px)}
+.value{font-size:1.4rem;font-weight:600}
+
+.console{
+  margin-top:20px;
+  padding:16px;
+  border-radius:16px;
+  background:rgba(0,0,0,.35);
+  border:1px solid var(--border);
+  min-height:90px;
+}
+
+/* COMMAND */
+.command{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center}
+.command-box{width:440px;background:var(--glass);backdrop-filter:var(--blur);border-radius:18px;padding:16px;border:1px solid var(--border)}
+.command-box input{width:100%;padding:14px;border-radius:12px;border:none;outline:none}
+
+</style>
+</head>
+<body>
+
+<!-- LOGIN PAGE -->
+<div class="login" id="login">
+  <div class="login-box">
+    <h2>Secure Login</h2>
+    <input id="user" placeholder="Username">
+    <input id="pass" type="password" placeholder="Password">
+    <button onclick="doLogin()">Login</button>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+<header>
+  <h2>Smart <span style="color:var(--accent)">Command Center Pro</span></h2>
+  <button onclick="logout()">Logout</button>
+</header>
+
+<div class="grid">
+  <div class="widget">
+    <h4>Time</h4>
+    <div class="value" id="time"></div>
+  </div>
+  <div class="widget" onclick="setStatus()">
+    <h4>Status</h4>
+    <div class="value" id="status">Active</div>
+  </div>
+  <div class="widget" onclick="showStorage()">
+    <h4>Local Storage</h4>
+    <div class="value" id="storage"></div>
+  </div>
+  <div class="widget" onclick="openCommand()">
+    <h4>AI Command</h4>
+    <div class="value">⌘K</div>
+  </div>
+</div>
+
+<div class="console" id="console">▶ System Ready</div>
+</div>
+
+<!-- COMMAND -->
+<div class="command" id="command">
+  <div class="command-box">
+    <input id="cmd" placeholder="ai hello | theme | status idle | about">
+  </div>
+</div>
+
+<script>
+/* ================= LOGIN ================= */
+function doLogin(){
+  const u = document.getElementById("user").value.trim();
+  const p = document.getElementById("pass").value.trim();
+
+  if(!u || !p){
+    alert("Username आणि Password टाका");
+    return;
+  }
+
+  if(u === "admin" && p === "1234"){
+    localStorage.setItem("auth","true");
+    showDashboard();
+  } else {
+    alert("Wrong Username or Password");
+  }
+}
+
+function logout(){
+  localStorage.removeItem("auth");
+  location.reload();
+}
+
+function showDashboard(){
+  document.getElementById("login").style.display = "none";
+  document.getElementById("dashboard").style.display = "block";
+}
+
+if(localStorage.getItem("auth") === "true") showDashboard();
+
+/* ================= CLOCK ================= */
+setInterval(()=>{
+  document.getElementById("time").innerText = new Date().toLocaleTimeString();
+},1000);
+
+/* ================= STORAGE ================= */
+function updateStorage(){
+  let t = 0;
+  for(let k in localStorage){
+    if(localStorage.hasOwnProperty(k)){
+      t += localStorage[k].length;
+    }
+  }
+  document.getElementById("storage").innerText = (t/1024).toFixed(2) + " KB";
+}
+updateStorage();
+
+/* ================= CONSOLE ================= */
+function log(msg){
+  document.getElementById("console").innerHTML = "▶ " + msg;
+}
+
+function setStatus(){
+  log("User is " + document.getElementById("status").innerText);
+}
+
+function showStorage(){
+  log("Local Storage Used: " + document.getElementById("storage").innerText);
+}
+
+/* ================= COMMAND ================= */
+function openCommand(){
+  document.getElementById("command").style.display = "flex";
+  document.getElementById("cmd").focus();
+}
+
+const cmdInput = document.getElementById("cmd");
+cmdInput.addEventListener("keydown", e => {
+  if(e.key === "Enter"){
+    runCmd(e.target.value.trim().toLowerCase());
+    e.target.value = "";
+  }
+});
+
+document.addEventListener("keydown", e => {
+  if(e.ctrlKey && e.key === "k"){
+    e.preventDefault();
+    openCommand();
+  }
+  if(e.key === "Escape"){
+    document.getElementById("command").style.display = "none";
+  }
+});
+
+/* ================= AI ENGINE ================= */
+function runCmd(cmd){
+  if(cmd.startsWith("ai ")){
+    const query = cmd.replace("ai ", "");
+    aiEngine(query);
+  }
+  else if(cmd === "theme"){
+    log("Theme toggled");
+  }
+  else if(cmd.startsWith("status")){
+    const s = cmd.split(" ")[1] || "active";
+    document.getElementById("status").innerText = s.charAt(0).toUpperCase() + s.slice(1);
+    log("Status changed to " + s);
+  }
+  else if(cmd === "about"){
+    log("Smart Command Center Pro v2.0 • AI Enabled");
+  }
+  else{
+    log("Unknown command");
+  }
+}
+
+function aiEngine(q){
+  log("AI thinking about: \"" + q + "\" ...");
+
+  setTimeout(()=>{
+    let reply = "";
+
+    if(q.includes("hello")){
+      reply = "Hello 👋 I am your Smart AI Assistant.";
+    }
+    else if(q.includes("time")){
+      reply = "Current time is " + new Date().toLocaleTimeString();
+    }
+    else if(q.includes("date")){
+      reply = "Today's date is " + new Date().toDateString();
+    }
+    else if(q.includes("help")){
+      reply = "Try: ai hello, ai time, ai date, ai who are you";
+    }
+    else if(q.includes("who are you")){
+      reply = "I am an AI simulation built into your Command Center.";
+    }
+    else{
+      reply = "You searched for '" + q + "'. AI response coming soon 🚀";
+    }
+
+    log("AI: " + reply);
+  },900);
+}
+</script>
+</body>
+</html>
